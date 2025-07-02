@@ -8,6 +8,13 @@ import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
+/**
+ * Renders the authentication page, allowing users to sign up for a new account or sign out if already signed in.
+ *
+ * Displays a sign-up form for new users, manages input state for name, email, and password, and handles sign-up logic with feedback alerts. If a user session exists, shows a welcome message and a sign-out button. Includes navigation to the home page and a link to the sign-in page for existing users.
+ *
+ * @returns The authentication UI as a React element.
+ */
 export default function Home() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

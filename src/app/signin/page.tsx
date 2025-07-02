@@ -6,6 +6,11 @@ import { ArrowLeft, ArrowLeftSquareIcon } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react'
 
+/**
+ * Renders a login page with email and password input fields, allowing users to sign in.
+ *
+ * Displays a back navigation link to the home page, controlled input fields for user credentials, and a sign-in button. Alerts the user on sign-in success or failure. Provides a link to the sign-up page for new users.
+ */
 function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
