@@ -7,6 +7,11 @@ import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 
+/**
+ * Renders the main home page, displaying authentication-dependent content and navigation.
+ *
+ * Shows a personalized welcome and sign-out option for authenticated users. For unauthenticated users, displays a navigation bar with links and a welcome section describing the app.
+ */
 export default function Home() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
