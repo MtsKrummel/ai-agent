@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { authClient } from "@/lib/auth-client";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 export default function Home() {
   const [name, setName] = useState("");
@@ -48,6 +50,14 @@ export default function Home() {
   
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-y-4 md:max-w-[400px] max-w-[300px] mx-auto">
+      <div className='flex items-center justify-start w-full'>
+          <Link href="/">
+              <ArrowLeft className='rounded-full border-2 hover:bg-gray-200 hover:cursor-pointer' />
+          </Link>
+          <span className='text-sm text-gray-500 p-2'>
+            Back to home            
+          </span>
+      </div>
       <Input 
         placeholder="Enter your name" 
         value={name} 
@@ -73,7 +83,7 @@ export default function Home() {
 
       <p className="text-sm text-gray-500">
         Already have an account? 
-        <a href="/login" className="text-blue-500 hover:underline"> Sign In</a>
+        <a href="/signin" className="text-blue-500 hover:underline"> Sign In</a>
       </p>
     </div>
   )
