@@ -74,6 +74,25 @@ export const SignUpView = () => {
             }
         )
     };
+
+    const onSocial = (provider: "google" | "github") => {
+        setError(null);
+        setIsLoading(true);
+
+        authClient.signIn.social(
+            {
+                provider: provider
+            },
+            {
+                onSuccess: () => {
+                    router.push("/");
+                },
+                onError: ({error}) => {
+                    setError(error.message);
+                }
+            }
+        )
+    };
     return(
         <Card className="flex w-full p-6">
             <div className='flex items-center justify-start w-full'>
@@ -177,6 +196,30 @@ export const SignUpView = () => {
                             </Button>
                         </form>
                     </Form>
+
+                    <div className="after:border-border relative text-center text-sm text-gray-500 mt-4">
+                        <span>or continue with</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 items-center mt-4">
+                        <Button
+                            className="bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-300"
+                            disabled={isLoading}
+                            variant="outline"
+                            type="button"
+                            onClick={() => onSocial("google")}
+                        >
+                            Google
+                        </Button>
+                        <Button 
+                            className="bg-gray-500 text-white hover:bg-gray-600 transition-colors duration-300"
+                            disabled={isLoading}
+                            variant="outline"
+                            type="button"
+                            onClick={() => onSocial("github")}
+                            >
+                            GitHub
+                        </Button>
+                    </div>
 
                     <div className="mt-4 text-center">
                         <p className="text-sm text-gray-500 mt-4">
