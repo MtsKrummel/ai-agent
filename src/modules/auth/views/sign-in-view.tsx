@@ -27,6 +27,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { set } from "date-fns";
 
 const signInSchema = z.object({
     email: z.string().email("Invalid email address"),
@@ -60,6 +61,27 @@ export const SignInView = () => {
                     router.push("/");
                 },
                 onError: ({error}) => {
+                    setError(error.message);
+                }
+            }
+        )
+    };
+
+    const onSocial = (provider: "google" | "github") => {
+        setError(null);
+        setIsLoading(true);
+
+        authClient.signIn.social(
+            {
+                provider: provider,
+                callbackURL: "/"
+            },
+            {
+                onSuccess: () => {
+                    setIsLoading(false);
+                },
+                onError: ({error}) => {
+                    setIsLoading(false);
                     setError(error.message);
                 }
             }
@@ -135,6 +157,30 @@ export const SignInView = () => {
                             </Button>
                         </form>
                     </Form>
+
+                    <div className="after:border-border relative text-center text-sm text-gray-500 mt-4">
+                        <span>or continue with</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 items-center mt-4">
+                        <Button 
+                            className="bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-300"
+                            disabled={isLoading}
+                            variant="outline"
+                            type="button"
+                            onClick={() => onSocial("google")}
+                        >
+                            Google
+                        </Button>
+                        <Button 
+                            className="bg-gray-500 text-white hover:bg-gray-600 transition-colors duration-300"
+                            disabled={isLoading}
+                            variant="outline"
+                            type="button"
+                            onClick={() => onSocial("github")}
+                        >
+                            GitHub
+                        </Button>
+                    </div>
 
                     <div className="mt-4 text-center">
                         <p className="text-sm text-gray-500 mt-4">
