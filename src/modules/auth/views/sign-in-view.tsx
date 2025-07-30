@@ -1,6 +1,7 @@
 "use client"
 //UI
 import { Button } from "@/components/ui/button";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertTitle } from "@/components/ui/alert";
@@ -26,16 +27,13 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
-import { set } from "date-fns";
 
 const signInSchema = z.object({
     email: z.string().email("Invalid email address"),
-    password: z.string().min(8, "Password must be at least 8 characters").regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, "Password must contain at least one uppercase letter, one lowercase letter, and one number"),
+    password: z.string().min(8, { message: "Password must be at least 8 characters" }),
 })
 
 export const SignInView = () => {
-    const router = useRouter();
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -55,12 +53,14 @@ export const SignInView = () => {
             {
                 email: data.email,
                 password: data.password,
+                callbackURL: "/",
             },
             {
                 onSuccess: () => {
-                    router.push("/");
+                    setIsLoading(false);
                 },
-                onError: ({error}) => {
+                onError: ({ error }) => {
+                    setIsLoading(false);
                     setError(error.message);
                 }
             }
@@ -80,7 +80,7 @@ export const SignInView = () => {
                 onSuccess: () => {
                     setIsLoading(false);
                 },
-                onError: ({error}) => {
+                onError: ({ error }) => {
                     setIsLoading(false);
                     setError(error.message);
                 }
@@ -138,8 +138,7 @@ export const SignInView = () => {
                                 />
                             </div>
 
-                            {/* error section */}
-                            {!!error && (
+                            {error && (
                                 <Alert variant="destructive" className="mt-4">
                                     <OctagonAlertIcon className="h-4 w-4" />
                                     <AlertTitle>{error}</AlertTitle>
@@ -149,8 +148,8 @@ export const SignInView = () => {
                             {/* submit button */}
 
                             <Button
-                                className="mt-4 w-full"
                                 type="submit"
+                                className="mt-4 w-full"
                                 disabled={isLoading}
                             >
                                 Sign In
@@ -163,22 +162,22 @@ export const SignInView = () => {
                     </div>
                     <div className="grid grid-cols-2 gap-4 items-center mt-4">
                         <Button 
-                            className="bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-300"
+                            className="bg-blue-500 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300 cursor-pointer"
                             disabled={isLoading}
                             variant="outline"
                             type="button"
-                            onClick={() => onSocial("google")}
+                            onClick={() => {onSocial("google")}}
                         >
-                            Google
+                            <FaGoogle className="mr-2" />
                         </Button>
                         <Button 
-                            className="bg-gray-500 text-white hover:bg-gray-600 transition-colors duration-300"
+                            className="bg-gray-500 text-white hover:bg-gray-600 hover:text-white transition-colors duration-300 cursor-pointer"
                             disabled={isLoading}
                             variant="outline"
                             type="button"
                             onClick={() => onSocial("github")}
                         >
-                            GitHub
+                            <FaGithub className="mr-2" />
                         </Button>
                     </div>
 
