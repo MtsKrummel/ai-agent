@@ -1,17 +1,19 @@
-"use client";
 import { Button } from "@/components/ui/button";
 
+import { auth } from "@/lib/auth";
 import { authClient } from "@/lib/auth-client";
+
+import { HomeView } from "@/modules/home/ui/views/home-view";
+import { headers } from "next/headers";
 
 import Link from "next/link";
 
-export default function Home() {
+export default async function Page() {
   //session section
-  const { 
-    data: session, 
-  } = authClient.useSession();
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
 
-  
   return (
     <div>
       <nav className="flex items-center justify-between bg-gray-300 text-blue-950 max-h-[60px]">
@@ -28,15 +30,9 @@ export default function Home() {
           </div>
 
           <span className="flex ml-4 h-8 border-r-2 border-gray-400 "></span>
-
-          {
-            session ? (
-              <Button className="hover:cursor-pointer hover:bg-red-600 p-2 rounded-[10px] transition-all duration-300 ease-in-out"
-              onClick={() => authClient.signOut()}>
-                Logout
-              </Button>
-            ) : (
-              <div>
+            {
+              !session && (
+                <div>
                 <Link 
                   href="/signin" className="hover:cursor-pointer hover:bg-blue-300 p-2 rounded-[10px] transition-all duration-300 ease-in-out"
                 >
@@ -49,27 +45,13 @@ export default function Home() {
                   Sign Up
                 </Link>
               </div>
-            )
-          }
+              )
+            }
+
+            
         </div>
       </nav>
-
-      {
-        session ? (
-          <div className="flex items-center justify-center h-[calc(100vh-60px)]">
-            <h1 className="text-2xl font-bold">Welcome, {session.user?.name}!</h1>
-          </div>
-        ) : (
-          <div className="flex items-center justify-center h-[calc(100vh-60px)]">
-            <h1 className="text-2xl font-bold">Please sign in to continue.</h1>
-          </div>
-        )
-      }
-
-      <section>
-        <h2 className="text-2xl font-bold">Welcome to Ia agent app!</h2>
-        <p className="mt-2 text-gray-600">This is a simple ai agent app</p>
-      </section>
+      <HomeView />
     </div>
   )
 }

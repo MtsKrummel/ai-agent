@@ -1,10 +1,19 @@
-
 import React, { useState } from 'react'
 
 import { SignInView } from '@/modules/auth/views/sign-in-view';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 
-function LoginPage() {
+export default async function Page() {
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    })
+
+    if (!!session){
+        redirect('/')
+    }
 
     return (
         <div className="flex flex-col items-center justify-center h-screen gap-y-4 md:max-w-[500px] max-w-[400px] mx-auto transition-all duration-300 ease-in-out">
@@ -15,5 +24,3 @@ function LoginPage() {
         </div>
   )
 }
-
-export default LoginPage

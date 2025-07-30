@@ -31,8 +31,8 @@ import { useRouter } from "next/navigation";
 const signUpSchema = z.object({
     name: z.string().min(1, "Name is required"),
     email: z.string().email("Invalid email address"),
-    password: z.string().min(8, "Password must be at least 8 characters").regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, "Password must contain at least one uppercase letter, one lowercase letter, and one number"),
-    confirmPassword: z.string().min(1, "Confirm password is required"),
+    password: z.string().min(8, { message: "Password must be at least 8 characters"}),
+    confirmPassword: z.string().min(8, { message: "Confirm password is required"}),
 })
 .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -60,15 +60,18 @@ export const SignUpView = () => {
 
         authClient.signUp.email(
             {
+                name: data.name,
                 email: data.email,
                 password: data.password,
-                name: data.name,
+                callbackURL: "/",
             },
             {
                 onSuccess: () => {
-                    router.push("/");
+                    setIsLoading(false);
+                    router.push('/');
                 },
                 onError: ({error}) => {
+                    setIsLoading(false);
                     setError(error.message);
                 }
             }
@@ -81,13 +84,16 @@ export const SignUpView = () => {
 
         authClient.signIn.social(
             {
-                provider: provider
+                provider: provider,
+                callbackURL: "/"
             },
             {
                 onSuccess: () => {
-                    router.push("/");
+                    setIsLoading(false);
+                    router.push('/');
                 },
                 onError: ({error}) => {
+                    setIsLoading(false);
                     setError(error.message);
                 }
             }
@@ -178,9 +184,9 @@ export const SignUpView = () => {
                             </div>
 
                             {/* error section */}
-                            {!!error && (
-                                <Alert variant="destructive" className="mt-4">
-                                    <OctagonAlertIcon className="h-4 w-4" />
+                            {true && (
+                                <Alert className="bg-destructive/10 border-none">
+                                    <OctagonAlertIcon className="h-4 w-4 !text-destructive" />
                                     <AlertTitle>{error}</AlertTitle>
                                 </Alert>
                             )}
