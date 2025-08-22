@@ -11,16 +11,16 @@ export const HomeView = () => {
     const router = useRouter();
     const { data : session } = authClient.useSession();
 
-    if(!session) return (
-        <h1>Home page</h1>
-    );
-
     return (
         <SidebarProvider>
             <DashboardSidebar />
             <main className="flex flex-col h-screen w-screen bg-muted">
                 <DashboardNavBar />
-                <h1>Welcome to the Home Page</h1>
+                {
+                    !session 
+                    ? <h1>Loading...</h1> 
+                    : <h1>Welcome back, {session.user.name}!</h1>
+                }
             </main>
         </SidebarProvider>
     );
