@@ -31,8 +31,8 @@ import { useRouter } from "next/navigation";
 const signUpSchema = z.object({
     name: z.string().min(1, "Name is required"),
     email: z.string().email("Invalid email address"),
-    password: z.string().min(8, "Password must be at least 8 characters").regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, "Password must contain at least one uppercase letter, one lowercase letter, and one number"),
-    confirmPassword: z.string().min(1, "Confirm password is required"),
+    password: z.string().min(8, { message: "Password must be at least 8 characters"}),
+    confirmPassword: z.string().min(8, { message: "Confirm password is required"}),
 })
 .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
@@ -60,15 +60,40 @@ export const SignUpView = () => {
 
         authClient.signUp.email(
             {
+                name: data.name,
                 email: data.email,
                 password: data.password,
-                name: data.name,
+                callbackURL: "/",
             },
             {
                 onSuccess: () => {
-                    router.push("/");
+                    setIsLoading(false);
+                    router.push('/');
                 },
                 onError: ({error}) => {
+                    setIsLoading(false);
+                    setError(error.message);
+                }
+            }
+        )
+    };
+
+    const onSocial = (provider: "google" | "github") => {
+        setError(null);
+        setIsLoading(true);
+
+        authClient.signIn.social(
+            {
+                provider: provider,
+                callbackURL: "/"
+            },
+            {
+                onSuccess: () => {
+                    setIsLoading(false);
+                    router.push('/');
+                },
+                onError: ({error}) => {
+                    setIsLoading(false);
                     setError(error.message);
                 }
             }
@@ -159,9 +184,9 @@ export const SignUpView = () => {
                             </div>
 
                             {/* error section */}
-                            {!!error && (
-                                <Alert variant="destructive" className="mt-4">
-                                    <OctagonAlertIcon className="h-4 w-4" />
+                            {true && (
+                                <Alert className="bg-destructive/10 border-none">
+                                    <OctagonAlertIcon className="h-4 w-4 !text-destructive" />
                                     <AlertTitle>{error}</AlertTitle>
                                 </Alert>
                             )}
@@ -177,6 +202,30 @@ export const SignUpView = () => {
                             </Button>
                         </form>
                     </Form>
+
+                    <div className="after:border-border relative text-center text-sm text-gray-500 mt-4">
+                        <span>or continue with</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 items-center mt-4">
+                        <Button
+                            className="bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-300"
+                            disabled={isLoading}
+                            variant="outline"
+                            type="button"
+                            onClick={() => onSocial("google")}
+                        >
+                            Google
+                        </Button>
+                        <Button 
+                            className="bg-gray-500 text-white hover:bg-gray-600 transition-colors duration-300"
+                            disabled={isLoading}
+                            variant="outline"
+                            type="button"
+                            onClick={() => onSocial("github")}
+                            >
+                            GitHub
+                        </Button>
+                    </div>
 
                     <div className="mt-4 text-center">
                         <p className="text-sm text-gray-500 mt-4">
