@@ -1,14 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { LoadingState } from "@/components/loading-state";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
 import { DashboardSidebar } from "@/modules/dashboard/ui/components/dashboad-sidebar";
 import { DashboardNavBar } from "@/modules/dashboard/ui/components/dashboard-navbar";
-import { useRouter } from "next/navigation";
 
 export const HomeView = () => {
-    const router = useRouter();
     const { data : session } = authClient.useSession();
 
     return (
@@ -18,7 +16,10 @@ export const HomeView = () => {
                 <DashboardNavBar />
                 {
                     !session 
-                    ? <h1>Loading...</h1> 
+                    ? <LoadingState 
+                        title="Loading Home..." 
+                        description="This may take a few seconds"
+                    />
                     : <h1>Welcome back, {session.user.name}!</h1>
                 }
             </main>
