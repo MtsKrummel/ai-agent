@@ -1,9 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { DashboardNavBar } from "@/modules/dashboard/ui/components/dashboard-navbar";
 import { HomeView } from "@/modules/home/ui/views/home-view";
 
 import { auth } from "@/lib/auth";
-import { authClient } from "@/lib/auth-client";
 
 import { headers } from "next/headers";
 
