@@ -25,7 +25,7 @@ interface ResponsiveDialogProps {
     onOpenChange: (open: boolean) => void
 }
 
-const ResponsiveDialog = ({ 
+export const ResponsiveDialog = ({ 
     title,
     description,
     open,
@@ -46,8 +46,8 @@ const ResponsiveDialog = ({
                             {description}
                         </DrawerDescription>
                     </DrawerHeader>
-                    
-                    <div className="p-4">
+
+                    <div className="p-4 h-screen overflow-hidden">
                         {children}
                     </div>
                 </DrawerContent>
@@ -70,4 +70,3 @@ const ResponsiveDialog = ({
         </Dialog>
     )
 }
-export default ResponsiveDialog

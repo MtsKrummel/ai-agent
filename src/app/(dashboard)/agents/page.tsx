@@ -11,7 +11,6 @@ const page = async() => {
   void queryClient.prefetchQuery(trpc.agents.getMany.queryOptions());
   return (
     <>
-      <h1>Welcome to agents!</h1>
       <AgentsListHeader />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Suspense
