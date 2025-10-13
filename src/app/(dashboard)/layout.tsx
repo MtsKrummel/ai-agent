@@ -5,7 +5,7 @@ import { authClient } from "@/lib/auth-client";
 import { DashboardSidebar } from "@/modules/dashboard/ui/components/dashboad-sidebar";
 import { DashboardNavBar } from "@/modules/dashboard/ui/components/dashboard-navbar";
 import { Suspense } from "react";
-import ErrorPage from "./agents/error";
+import { Toaster } from "sonner";
 
 interface Props {
     children: React.ReactNode
@@ -28,6 +28,7 @@ const Layout = ({ children }: Props) => {
                             title="Loading..."
                             description="This may take a few seconds"
                         />}>
+                        <Toaster />
                         {children}
                     </Suspense>
                 </main>

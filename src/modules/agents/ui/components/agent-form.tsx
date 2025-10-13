@@ -1,5 +1,4 @@
 import { useTRPC } from "@/trpc/client";
-import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { AgentGetOne } from "@/modules/agents/types";
@@ -20,6 +19,7 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
+import { toast } from "sonner";
 
 interface AgentFormProps {
     onSuccess?: () => void;
@@ -33,13 +33,25 @@ export const AgentForm = ({
     initialValues,
 }: AgentFormProps) => {
     const trpc = useTRPC();
-    const router = useRouter();
     const queryClient = useQueryClient();
 
     const createAgent = useMutation(
         trpc.agents.create.mutationOptions({
-            onSuccess: () => {},
-            onError: () => {},
+            onSuccess: async () => {
+                await queryClient.invalidateQueries(
+                    trpc.agents.getMany.queryOptions(),
+                );
+                if (initialValues?.id) {
+                    await queryClient.invalidateQueries(
+                        trpc.agents.getOne.queryOptions({ id: initialValues.id }),
+                    )
+                }
+                onSuccess?.();
+            },
+            onError: (error) => {
+                toast.error(error.message);
+                // TODO: Check if error code is "FORBIDDEN", redirect to "/upgrade"
+            },
         })
     );
 
@@ -97,7 +109,10 @@ export const AgentForm = ({
                         <FormItem>
                             <FormLabel>Instructions</FormLabel>
                             <FormControl>
-                                <Textarea placeholder="Agent Instructions" {...field} disabled={isPending} />
+                                <Textarea 
+                                    placeholder="Agent Instructions"
+                                    {...field}
+                                    disabled={isPending} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
