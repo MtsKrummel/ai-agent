@@ -17,31 +17,6 @@ export const AgentsView = () => {
   }));
   
   return (
-<<<<<<< HEAD
-    <div>
-      {
-        data?.length ? (
-          <ul className="space-y-4">
-            
-            {data.map(agent => (
-              <li 
-                className="bg-accent-foreground mx-8 text-white p-6 rounded-lg shadow-md" 
-                key={agent.id}
-              >
-                <GeneratedAvatar 
-                    seed={agent.name}  variant="botttsNeutral" 
-                    className="border size-16"
-                />
-                <h2 className="text-xl font-bold">{agent.name}</h2>
-                <p className="text-sm text-muted-foreground">{agent.instructions}</p>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No agents found.</p>
-        )
-      }
-=======
     <div className="flex-1 pb-4 px-4 md:px-8 flex flex-col gap-y-4">
       <DataTable data={data.items} columns={columns} />
       <DataPagination
@@ -55,7 +30,6 @@ export const AgentsView = () => {
           description="Create an agent to join your meetings and assist you. Each agent can be customized with specific instructions to suit your needs."
         />
       )}
->>>>>>> 236d7ee031757fea219477643d2640a13a2aab55
     </div>
 );
 }
