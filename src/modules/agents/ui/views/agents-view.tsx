@@ -14,6 +14,7 @@ export const AgentsView = () => {
       {
         data?.length ? (
           <ul className="space-y-4">
+            
             {data.map(agent => (
               <li 
                 className="bg-accent-foreground mx-8 text-white p-6 rounded-lg shadow-md" 
