@@ -43,7 +43,7 @@ export const AgentForm = ({
                 );
                 if (initialValues?.id) {
                     await queryClient.invalidateQueries(
-                        trpc.agents.getOne.queryOptions({ id: initialValues.id }),
+                        trpc.agents.getOne.queryOptions({ agentId: initialValues.id }),
                     )
                 }
                 onSuccess?.();
