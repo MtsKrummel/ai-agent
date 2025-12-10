@@ -95,7 +95,7 @@ export const AgentForm = ({
     return (
         <Form {...form}>
             <form 
-                className="space-y-8"
+                className="space-y-4"
                 onSubmit={form.handleSubmit(onSubmit)} 
             >
                 <div className="flex flex-col items-center">
