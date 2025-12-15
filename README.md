@@ -21,18 +21,25 @@ IA Agent es una aplicación web con autenticación (email/password y social logi
 ## Variables de entorno (archivo `.env`)
 Crear un archivo `.env` en la raíz del proyecto con las siguientes variables. No subas este archivo al repositorio.
 
+BASE DE DATOS
 - DATABASE_URL
-  - Postgres connection string (ej. postgres://user:password@host:port/dbname?sslmode=require)
+  - Por ejemplo una conexión con Postgres (ej. postgres://user:password@host:port/dbname?sslmode=require)
+  - Podes usar Neon para crear la base de datos: https://neon.com/
+
+AUTENTICACIÓN
 - BETTER_AUTH_SECRET
-  - Secreto para firmar tokens/sesiones (generar string aleatorio)
+  Secreto para firmar tokens/sesiones (generar string aleatorio)
 - BETTER_AUTH_URL
   - URL base de la app (ej. http://localhost:3000 o https://your-domain.com)
+
 - GITHUB_CLIENT_ID
 - GITHUB_CLIENT_SECRET
   - Credenciales del OAuth App de GitHub
+
 - GOOGLE_CLIENT_ID
 - GOOGLE_CLIENT_SECRET
-  - Credenciales del OAuth 2.0 Client de Google
+  - Credenciales del OAuth 2.0 Client de Google -> (https://developers.google.com/identity/protocols/oauth2?hl=es-419#1.-obtain-oauth-2.0-credentials-from-the-dynamic_data.setvar.console_name.)
+
 - NEXT_PUBLIC_APP_URL
   - URL pública usada por la app (ej. http://localhost:3000)
 
