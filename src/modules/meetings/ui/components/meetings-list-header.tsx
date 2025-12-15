@@ -24,12 +24,8 @@ export const MeetingsListHeader = () => {
                     onClick={()=>setIsDialogOpen(true)}
                 >
                     <PlusIcon />
-                    New Agent
+                    New Meeting
                 </Button>
-            </div>
-
-            <div className="flex items-center gap-x-2 p-1">
-                
             </div>
         </div>
     </>

@@ -192,7 +192,7 @@ export const MeetingForm = ({
                                 type="submit" 
                                 disabled={isPending}
                             >
-                                {isEdit ? "Save Changes" : "Create Agent"}
+                                {isEdit ? "Save Changes" : "Create"}
                             </Button>
                         </div>
                     </div>
