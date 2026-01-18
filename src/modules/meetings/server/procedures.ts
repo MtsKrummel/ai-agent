@@ -1,7 +1,7 @@
 import { db } from "@/db";
-import { meetings} from "@/db/schema";
+import { agents, meetings} from "@/db/schema";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
-import { eq, getTableColumns, ilike, and, desc, count } from "drizzle-orm";
+import { eq, getTableColumns, ilike, and, desc, count, sql } from "drizzle-orm";
 import z from "zod";
 import { 
   DEFAULT_PAGE, 
@@ -10,7 +10,7 @@ import {
   MIN_PAGE_SIZE 
 } from "@/constants";
 import { TRPCError } from "@trpc/server";
-import { meetingsInsertSchema, meetingUpdateSchema } from "../schemas";
+import { meetingsInsertSchema, meetingsUpdateSchema } from "@/modules/meetings/schemas";
 import { MeetingStatus } from "../types";
 
 export const meetingsRouter = createTRPCRouter({
@@ -30,8 +30,30 @@ export const meetingsRouter = createTRPCRouter({
       return createdMeeting;
     }),
 
+  remove: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async({ input, ctx }) => {
+      const [removedMeeting] = await db
+        .delete(meetings)
+        .where(
+          and(
+            eq(meetings.id, input.id),
+            eq(meetings.userId, ctx.auth.user.id),
+          ),
+        )
+        .returning()
+      
+      if(!removedMeeting){
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Meeting not found"
+        });
+      }
+      return removedMeeting;
+    }),
+
   update: protectedProcedure
-    .input(meetingUpdateSchema)
+    .input(meetingsUpdateSchema)
     .mutation(async({ input, ctx }) => {
       const [updatedMeeting] = await db
         .update(meetings)
@@ -76,8 +98,11 @@ export const meetingsRouter = createTRPCRouter({
     const data = await db
       .select({
         ...getTableColumns(meetings),
+        agent: agents,
+        duration: sql<number>`EXTRACT(EPOCH FROM (ended_at - started_at))`.as("duration"),
       })
       .from(meetings)
+      .leftJoin(agents, eq(meetings.agentId, agents.id))
       .where(
         and(
           eq(meetings.userId, ctx.auth.user.id),
