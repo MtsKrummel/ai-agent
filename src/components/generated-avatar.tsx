@@ -21,12 +21,12 @@ export const GeneratedAvatar = ({
 
     return (
         <Avatar className={cn("h-12 w-12", className)}>
-            <AvatarImage 
-                src={avatar.toDataUri()} 
-                alt="Generated avatar" 
+            <AvatarImage
+                src={avatar.toDataUri()}
+                alt="Generated avatar"
             />
             <AvatarFallback>
-                {seed.charAt(0).toUpperCase()}
+                {seed?.charAt(0).toUpperCase()}
             </AvatarFallback>
         </Avatar>
     );

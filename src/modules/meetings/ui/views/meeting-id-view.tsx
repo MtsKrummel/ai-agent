@@ -15,7 +15,7 @@ interface Props {
   meetingId: string;
 }
 
-export const MeetingIdView = ({ meetingId } : Props) => {
+export const MeetingIdView = ({ meetingId }: Props) => {
   const trpc = useTRPC()
   const queryClient = useQueryClient()
   const router = useRouter()
@@ -40,10 +40,10 @@ export const MeetingIdView = ({ meetingId } : Props) => {
     }),
   );
 
-  const handleRemoveMeeting = async() => {
+  const handleRemoveMeeting = async () => {
     const ok = await confirmRemove();
 
-    if(!ok) return
+    if (!ok) return
 
     await removeMeeting.mutateAsync({ id: meetingId })
   }

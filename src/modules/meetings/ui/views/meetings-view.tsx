@@ -20,16 +20,16 @@ export const MeetingsView = () => {
   return (
     <div className="flex-1 pb-4 px-4 md:px-8 flex flex-col gap-y-4">
       {data.items.length === 0 ? (
-      <EmptyState
-        title="No meetings yet"
-        description="You haven't created any meetings. Start by scheduling your first meeting to enable AI assistance and meeting automation."
-      />
+        <EmptyState
+          title="No meetings yet"
+          description="You haven't created any meetings. Start by scheduling your first meeting to enable AI assistance and meeting automation."
+        />
       ) : (
-      <DataTable 
-        data={data.items}
-        columns={columns}
-        onRowClick={(row) => router.push(`/meetings/${row.id}`)}
-      />
+        <DataTable
+          data={data.items}
+          columns={columns}
+          onRowClick={(row) => router.push(`/meetings/${row.id}`)}
+        />
       )}
     </div>
   )
@@ -37,8 +37,8 @@ export const MeetingsView = () => {
 
 export const MeetingsViewLoading = () => {
   return (
-    <LoadingState 
-      title="Loading Meetings" 
+    <LoadingState
+      title="Loading Meetings"
       description="This may take a few seconds"
     />
   )
@@ -46,7 +46,7 @@ export const MeetingsViewLoading = () => {
 export const MeetingsViewError = () => {
   return (
     <ErrorState
-      title="Loading Meetings" 
+      title="Loading Meetings"
       description="This may take a few seconds"
     />
   )
