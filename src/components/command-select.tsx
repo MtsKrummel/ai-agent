@@ -11,7 +11,6 @@ import {
   CommandList,
   CommandResponsiveDialog,
 } from "@/components/ui/command"
-import { useMeetingsFilters } from "@/modules/meetings/hooks/use-meetings-filters"
 
 interface SelectOption {
     id: string;
@@ -39,7 +38,6 @@ export const  CommandSelect = ({
     isSearchable = true,
     className,
 }: CommandSelectProps) => {
-    const [filters, setFilters] = useMeetingsFilters();
     const [open, setOpen] = useState(false)
     const selectedOption = options.find((option) => option.value === value)
 

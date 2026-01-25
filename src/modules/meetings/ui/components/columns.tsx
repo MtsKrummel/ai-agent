@@ -14,7 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge"
 import { cn } from "@/lib/utils"
 
-import { MeetingGetMany, MeetingGetOne } from "../../types"
+import { MeetingGetMany } from "../../types"
 
 import { format } from "date-fns"
 
@@ -49,7 +49,6 @@ export const columns: ColumnDef<MeetingGetMany[number]>[] = [
     accessorKey: "name",
     header: "Meeting Name",
     cell: ({ row }) => {
-      const agent = row.original
       return (
         <div className="flex flex-col gap-y-1">
           <span className="font-semibold capitalize">
@@ -60,13 +59,13 @@ export const columns: ColumnDef<MeetingGetMany[number]>[] = [
             <div className="flex items-center gap-x-2">
               <CornerDownRightIcon className="size-3 text-muted-foreground" />
               <span className="text-sm text-muted-foreground max-w-[200px] truncate capitalize">
-                {row.original.agent.name}
+                {row.original.agent?.name}
               </span>
             </div>
 
             <GeneratedAvatar
               variant="botttsNeutral"
-              seed={row.original.agent.name}
+              seed={row.original.agent?.name}
               className="size-4"
             />
 

@@ -90,17 +90,18 @@ export const MeetingForm = ({
     const form = useForm<z.infer<typeof meetingsInsertSchema>>({
         resolver: zodResolver(meetingsInsertSchema),
         defaultValues: {
+            meetingId: initialValues?.id || "",
             name: initialValues?.name || "",
             agentId: initialValues?.agentId || "",
         }
     })
 
-    const isEdit = !!initialValues?.id;    
+    const isEdit = !!initialValues?.id;
     const isPending = createMeeting.isPending || updateMeeting.isPending;
 
     const onSubmit = (values: z.infer<typeof meetingsInsertSchema>) => {
         if (isEdit) {
-            updateMeeting.mutate({ ...values, id: values.agentId });
+            updateMeeting.mutate({ ...values, id: values.meetingId });
         } else {
             createMeeting.mutate(values);
         }
