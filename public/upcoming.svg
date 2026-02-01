@@ -17,15 +17,11 @@
         fill: #fff;
       }
 
-      .st3 {
-        fill: #f5f6f6;
-      }
-
-      .st4, .st5, .st1 {
+      .st3, .st4, .st1 {
         fill: #1c81fc;
       }
 
-      .st5 {
+      .st4 {
         opacity: .2;
       }
     </style>
@@ -34,8 +30,10 @@
     <rect class="st2" y="42.5" width="166" height="50" rx="8" ry="8"/>
     <rect class="st0" x=".2" y="42.8" width="165.5" height="49.5" rx="7.7" ry="7.7"/>
   </g>
-  <rect class="st3" x="8" y="50.5" width="34" height="34" rx="6" ry="6"/>
-  <path class="st4" d="M53,54.5h68c1.1,0,2,.9,2,2h0c0,1.1-.9,2-2,2H53c-1.1,0-2-.9-2-2h0c0-1.1.9-2,2-2Z"/>
+  <rect class="st4" x="8" y="50.5" width="34" height="34" rx="6" ry="6"/>
+  <rect class="st3" x="16.5" y="61.5" width="13" height="10" rx="2" ry="2"/>
+  <path class="st3" d="M29.5,63.5l4-2v10l-4-2v-6Z"/>
+  <path class="st3" d="M53,54.5h68c1.1,0,2,.9,2,2h0c0,1.1-.9,2-2,2H53c-1.1,0-2-.9-2-2h0c0-1.1.9-2,2-2Z"/>
   <path class="st1" d="M53,66.5h60c1.1,0,2,.9,2,2h0c0,1.1-.9,2-2,2h-60c-1.1,0-2-.9-2-2h0c0-1.1.9-2,2-2Z"/>
-  <path class="st5" d="M53,78.5h90c1.1,0,2,.9,2,2h0c0,1.1-.9,2-2,2H53c-1.1,0-2-.9-2-2h0c0-1.1.9-2,2-2Z"/>
+  <path class="st4" d="M53,78.5h90c1.1,0,2,.9,2,2h0c0,1.1-.9,2-2,2H53c-1.1,0-2-.9-2-2h0c0-1.1.9-2,2-2Z"/>
 </svg>

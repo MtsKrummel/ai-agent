@@ -15,52 +15,32 @@ const options = [
   {
     id: MeetingStatus.Upcoming,
     value: MeetingStatus.Upcoming,
-    children: (
-      <div className="flex items-center gap-x-2 capitalize">
-        <ClockArrowUpIcon />
-        {MeetingStatus.Upcoming}
-      </div>
-    )
+    label: "Upcoming",
+    children: <ClockArrowUpIcon className="size-4" />
   },
   {
     id: MeetingStatus.Completed,
     value: MeetingStatus.Completed,
-    children: (
-      <div className="flex items-center gap-x-2 capitalize">
-        <CircleCheckIcon />
-        {MeetingStatus.Completed}
-      </div>
-    )
+    label: "Completed",
+    children: <CircleCheckIcon className="size-4" />
   },
   {
     id: MeetingStatus.Active,
     value: MeetingStatus.Active,
-    children: (
-      <div className="flex items-center gap-x-2 capitalize">
-        <VideoIcon />
-        {MeetingStatus.Active}
-      </div>
-    )
+    label: "Active",
+    children: <VideoIcon className="size-4" />
   },
   {
     id: MeetingStatus.Processing,
     value: MeetingStatus.Processing,
-    children: (
-      <div className="flex items-center gap-x-2 capitalize">
-        <LoaderIcon />
-        {MeetingStatus.Processing}
-      </div>
-    )
+    label: "Processing",
+    children: <LoaderIcon className="size-4" />
   },
   {
     id: MeetingStatus.Cancelled,
     value: MeetingStatus.Cancelled,
-    children: (
-      <div className="flex items-center gap-x-2 capitalize">
-        <CircleXIcon />
-        {MeetingStatus.Cancelled}
-      </div>
-    )
+    label: "Cancelled",
+    children: <CircleXIcon className="size-4" />
   },
 ]
 
@@ -68,7 +48,7 @@ export const StatusFilter = () => {
   const [filters, setFilters] = useMeetingsFilters()
 
   return (
-    <CommandSelect 
+    <CommandSelect
       placeholder="Status"
       className="h-9"
       options={options}

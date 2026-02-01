@@ -5,11 +5,11 @@ import { cn } from "@/lib/utils"
 import { Button } from "./ui/button"
 
 import {
-  CommandEmpty,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandResponsiveDialog,
+    CommandEmpty,
+    CommandInput,
+    CommandItem,
+    CommandList,
+    CommandResponsiveDialog,
 } from "@/components/ui/command"
 
 interface SelectOption {
@@ -29,7 +29,7 @@ interface CommandSelectProps {
     className?: string;
 }
 
-export const  CommandSelect = ({
+export const CommandSelect = ({
     options,
     onSelect,
     onSearch,
@@ -40,8 +40,6 @@ export const  CommandSelect = ({
 }: CommandSelectProps) => {
     const [open, setOpen] = useState(false)
     const selectedOption = options.find((option) => option.value === value)
-
-    console.log(options)
 
     return (
         <>
@@ -60,7 +58,7 @@ export const  CommandSelect = ({
                         <>
                             {selectedOption.children}
                             <span className="text-sm">
-                                {selectedOption.label} 
+                                {selectedOption.label}
                             </span>
                         </>
                     ) : (

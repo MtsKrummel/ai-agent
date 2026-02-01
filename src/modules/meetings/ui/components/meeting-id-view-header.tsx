@@ -29,7 +29,7 @@ export const MeetingIdViewHeader = ({
   meetingName,
   onEdit,
   onRemove
-} : Props) => {
+}: Props) => {
   return (
     <div className="flex items-center justify-between">
       <Breadcrumb>
@@ -48,7 +48,7 @@ export const MeetingIdViewHeader = ({
 
           <BreadcrumbItem>
             <BreadcrumbLink asChild className="font-bold text-xl text-foreground">
-              <Link 
+              <Link
                 href={`/meetings/${meetingId}`}
               >
                 {meetingName}
@@ -64,15 +64,15 @@ export const MeetingIdViewHeader = ({
             <MoreVerticalIcon />
           </Button>
         </DropdownMenuTrigger>
-        
+
         <DropdownMenuContent align="end">
           <DropdownMenuItem onClick={onEdit}>
-            <PencilIcon className="size-4 text-black"/>
+            <PencilIcon className="size-4 text-black" />
             Edit
           </DropdownMenuItem>
 
           <DropdownMenuItem onClick={onRemove}>
-            <TrashIcon className="size-4 text-black"/>
+            <TrashIcon className="size-4 text-black" />
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
