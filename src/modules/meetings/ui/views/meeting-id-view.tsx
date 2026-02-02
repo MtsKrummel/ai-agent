@@ -76,7 +76,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
         {upcoming && (
           <UpcomingState
             meetingId={meetingId}
-            onCancelMeeting={() => redirect("/meetings")}
+            onCancelMeeting={() => { }}
             isCancelling={false}
           />
         )}
