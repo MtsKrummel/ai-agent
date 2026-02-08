@@ -1,4 +1,4 @@
-import { headers} from "next/headers";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { auth } from "@/lib/auth";
@@ -16,7 +16,7 @@ interface Props {
   }>
 }
 
-const Page = async({ params } : Props) => {
+const Page = async ({ params }: Props) => {
   const { meetingId } = await params;
 
   const session = await auth.api.getSession({
@@ -24,7 +24,7 @@ const Page = async({ params } : Props) => {
   });
 
   if (!session) {
-    redirect("/sign-in");
+    redirect("/signin");
   }
 
   const queryClient = getQueryClient();
@@ -37,7 +37,7 @@ const Page = async({ params } : Props) => {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <Suspense fallback={<MeetingIdViewLoading />}>
         <ErrorBoundary fallback={<MeetingIdViewError />}>
-          <MeetingIdView 
+          <MeetingIdView
             meetingId={meetingId}
           />
         </ErrorBoundary>
