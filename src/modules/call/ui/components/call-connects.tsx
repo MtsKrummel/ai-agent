@@ -1,4 +1,5 @@
-"use client"
+"use client";
+
 import {
   Call,
   CallingState,
@@ -82,7 +83,7 @@ export const CallConnect = ({
         _call.endCall();
         setCall(undefined)
       }
-    }
+    };
   }, [client, meetingId])
 
   if (!client || !call) {

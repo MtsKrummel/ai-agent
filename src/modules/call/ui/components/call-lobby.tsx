@@ -2,12 +2,42 @@ import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
 import { generateAvatarUri } from "@/lib/generate-avatar";
 import { DefaultVideoPlaceholder, StreamVideoParticipant, ToggleAudioPreviewButton, ToggleVideoPreviewButton, useCallStateHooks, VideoPreview } from "@stream-io/video-react-sdk";
-import '@stream-io/video-react-sdk/dist/css/styles.css';
+
 import { LogInIcon } from "lucide-react";
 import Link from "next/link";
 
+import '@stream-io/video-react-sdk/dist/css/styles.css';
+
 interface Props {
   onJoin: () => void;
+}
+
+const DisabledVideoPreview = () => {
+  const { data } = authClient.useSession();
+
+  return (
+    <DefaultVideoPlaceholder
+      participant={
+        {
+          name: data?.user.name ?? "",
+          image:
+            data?.user.image ??
+            generateAvatarUri({
+              seed: data?.user.name || "",
+              variant: "initials",
+            }),
+        } as StreamVideoParticipant
+      }
+    />
+  )
+}
+
+const AllowBrowserPermissions = () => {
+  return (
+    <p className="text-sm">
+      Please grant your browser permission to access your camera and microphone.
+    </p>
+  )
 }
 
 export const CallLobby = ({ onJoin }: Props) => {
@@ -15,35 +45,7 @@ export const CallLobby = ({ onJoin }: Props) => {
   const { hasBrowserPermission: hasMicPermission } = useMicrophoneState();
   const { hasBrowserPermission: hasCameraPermission } = useCameraState();
 
-  const hadBrowserMediaPermission = hasCameraPermission && hasMicPermission;
-
-  const DisabledVideoPreview = () => {
-    const { data } = authClient.useSession();
-
-    return (
-      <DefaultVideoPlaceholder
-        participant={
-          {
-            name: data?.user.name ?? "",
-            image:
-              data?.user.image ??
-              generateAvatarUri({
-                seed: data?.user.name || "",
-                variant: "initials",
-              }),
-          } as StreamVideoParticipant
-        }
-      />
-    )
-  }
-
-  const AllowBrowserPermissions = () => {
-    return (
-      <p className="text-sm">
-        Please grant your browser a permission to access your camera and microphone.
-      </p>
-    )
-  }
+  const hasBrowserMediaPermission = hasCameraPermission && hasMicPermission;
 
   return (
     <div className="flex flex-col items-center justify-center h-full bg-radial from-sidebar-accent to-sidebar">
@@ -53,13 +55,15 @@ export const CallLobby = ({ onJoin }: Props) => {
             <h6 className="text-lg font-medium">Ready to join?</h6>
             <p className="text-sm">Set up your call before joining</p>
           </div>
-          <VideoPreview
-            DisabledVideoPreview={
-              hadBrowserMediaPermission
-                ? DisabledVideoPreview
-                : AllowBrowserPermissions
-            }
-          />
+          <div className="relative">
+            <VideoPreview
+              DisabledVideoPreview={
+                hasCameraPermission
+                  ? DisabledVideoPreview
+                  : AllowBrowserPermissions
+              }
+            />
+          </div>
 
           <div className="flex gap-x-2">
             <ToggleAudioPreviewButton />
@@ -74,7 +78,6 @@ export const CallLobby = ({ onJoin }: Props) => {
             </Button>
 
             <Button
-              className=""
               onClick={onJoin}
             >
               <LogInIcon />
