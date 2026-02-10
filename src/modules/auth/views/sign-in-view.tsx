@@ -87,7 +87,7 @@ export const SignInView = () => {
             }
         )
     };
-    return(
+    return (
         <Card className="flex w-full p-6">
             <div className='flex items-center justify-start w-full'>
                 <Link href="/">
@@ -100,7 +100,7 @@ export const SignInView = () => {
             <CardContent>
                 <div className="mt-4">
                     <Form {...form}>
-                        <form 
+                        <form
                             onSubmit={form.handleSubmit(onSubmit)}
                         >
                             <div className="flex flex-col gap-6">
@@ -161,16 +161,16 @@ export const SignInView = () => {
                         <span>or continue with</span>
                     </div>
                     <div className="grid grid-cols-2 gap-4 items-center mt-4">
-                        <Button 
+                        <Button
                             className="bg-blue-500 text-white hover:bg-blue-600 hover:text-white transition-colors duration-300 cursor-pointer"
                             disabled={isLoading}
                             variant="outline"
                             type="button"
-                            onClick={() => {onSocial("google")}}
+                            onClick={() => { onSocial("google") }}
                         >
                             <FaGoogle className="mr-2" />
                         </Button>
-                        <Button 
+                        <Button
                             className="bg-gray-500 text-white hover:bg-gray-600 hover:text-white transition-colors duration-300 cursor-pointer"
                             disabled={isLoading}
                             variant="outline"
@@ -183,7 +183,7 @@ export const SignInView = () => {
 
                     <div className="mt-4 text-center">
                         <p className="text-sm text-gray-500 mt-4">
-                            Don&apos;t have an account? 
+                            Don&apos;t have an account?
                             <Link href="/signup" className="text-blue-500 hover:underline ml-1">
                                 Sign Up
                             </Link>

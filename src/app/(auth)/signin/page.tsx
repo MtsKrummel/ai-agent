@@ -11,7 +11,7 @@ export default async function Page() {
         headers: await headers(),
     })
 
-    if (!!session){
+    if (!!session) {
         redirect('/')
     }
 
@@ -20,7 +20,7 @@ export default async function Page() {
             <h1 className="text-2xl font-bold mb-4">
                 Sign In
             </h1>
-            <SignInView  />
+            <SignInView />
         </div>
-  )
+    )
 }
