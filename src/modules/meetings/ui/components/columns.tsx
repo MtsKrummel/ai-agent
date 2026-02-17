@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table"
 
 import { GeneratedAvatar } from "@/components/generated-avatar"
-import { 
+import {
   CircleCheckIcon,
   CircleXIcon,
   ClockArrowUpIcon,
@@ -18,15 +18,7 @@ import { MeetingGetMany } from "../../types"
 
 import { format } from "date-fns"
 
-import humanizeDuration from "humanize-duration"
-
-function formatDuration(seconds: number){
-  return humanizeDuration(seconds * 1000, {
-    largest: 1,
-    round: true,
-    units: ["h", "m", "s"],
-  });
-};
+import { formatDuration } from "@/lib/utils"
 
 const statusIconMap = {
   upcoming: ClockArrowUpIcon,
@@ -92,7 +84,7 @@ export const columns: ColumnDef<MeetingGetMany[number]>[] = [
             statusColorMap[row.original.status as keyof typeof statusColorMap]
           )}
         >
-          <Icon 
+          <Icon
             className={cn(
               row.original.status === "processing" && "animate-spin"
             )}
@@ -111,7 +103,7 @@ export const columns: ColumnDef<MeetingGetMany[number]>[] = [
         variant="outline"
         className="capitalize [&>svg]:size-4 flex items-center gap-x-2"
       >
-        <ClockFadingIcon className="text-blue-700"/>
+        <ClockFadingIcon className="text-blue-700" />
         {row.original.duration ? formatDuration(row.original.duration) : "No duration"}
       </Badge>
     )
