@@ -14,6 +14,7 @@ import { UpcomingState } from "../components/upcoming-state";
 import { ActiveState } from "../components/active-state";
 import { CancelledState } from "../components/cancelled-state";
 import { ProcessingState } from "../components/processing-state";
+import { CompletedState } from "../components/completed-state";
 
 interface Props {
   meetingId: string;
@@ -28,6 +29,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
       id: meetingId
     })
   )
+
   const [updateMeetingDialogOpen, setUpdateMeetingDialogOpen] = useState(false)
   const [RemoveConfirmationDialog, confirmRemove] = useConfirm(
     "Are you sure?",
@@ -66,7 +68,7 @@ export const MeetingIdView = ({ meetingId }: Props) => {
         onOpenChange={setUpdateMeetingDialogOpen}
         initialValues={data}
       />
-      <div className="flex-1 flex-col px-4 py-4 md:px-8 gap-y-4">
+      <div className="flex-1 flex-col px-4 py-4 md:px-8 gap-y-4 bg-accent">
         <MeetingIdViewHeader
           meetingId={meetingId}
           meetingName={data.name}
@@ -96,9 +98,9 @@ export const MeetingIdView = ({ meetingId }: Props) => {
           />
         )}
         {completed && (
-          <div>
-            completed
-          </div>
+          <CompletedState
+            data={data}
+          />
         )}
       </div>
     </>
