@@ -8,6 +8,8 @@ import { GeneratedAvatar } from "@/components/generated-avatar"
 import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
 import { formatDuration } from "@/lib/utils"
+import { Transcript } from "./transcript"
+import { ChatProvider } from "./chat-provider"
 
 interface Props {
   data: MeetingGetOne
@@ -45,8 +47,8 @@ export const CompletedState = ({ data }: Props) => {
               </TabsTrigger>
 
               <TabsTrigger
-                value="ask-ai"
-                className="text-muted-foreground rounded-none bg-background data-[state=active]:shadow-none border-b-2 border-transparent data-[state=active]:border-b-primary data-[state=active]:text-accent-foreground h-full"
+                value="chat"
+                className="text-muted-foreground rounded-none bg-background data-[state=active]:shadow-none border-b-2 border-transparent data-[state=active]:border-b-primary data-[state=active]:text-accent-foreground h-full hover:text-accent-foreground"
               >
                 <SparklesIcon />
                 Ask AI
@@ -131,6 +133,10 @@ export const CompletedState = ({ data }: Props) => {
           </div>
         </TabsContent>
 
+        <TabsContent value="transcript">
+          <Transcript meetingId={data.id} />
+        </TabsContent>
+
         {/* TODO: Implement storage plataform to save recordings (AWS S3, Google Cloud Storage, etc.) */}
         <TabsContent value="recording">
           <div className="bg-white rounded-lg">
@@ -141,6 +147,10 @@ export const CompletedState = ({ data }: Props) => {
             />
           </div>
           <p className="text-center text-neutral-500 text-sm mt-2 bg-neutral-100 p-2 rounded-lg">The video will only be available for 2 weeks. Upgrade your plan so you don't lose your meetings.</p>
+        </TabsContent>
+
+        <TabsContent value="chat">
+          <ChatProvider meetingId={data.id} meetingName={data.name} />
         </TabsContent>
 
       </Tabs>
